@@ -18,7 +18,7 @@ def load_data(choices):
     """
     combined_df = get_symbol_data(choices)
 
-    return combined_df
+    # return combined_df
 
 def get_choices():
     """Prompts the dialog to get the Index and Crypto symbols.
@@ -28,52 +28,50 @@ def get_choices():
     """
     user_start_date = date.today()
     yesterday = user_start_date - timedelta(days=1)
+
+    # add_selectbox = st.sidebar.selectbox(
+    # "How would you like to be contacted?",
+    # ("Email", "Home phone", "Mobile phone")
+    # )
     
-    with st.form("my_form"):
-        st.write("The max amount of years you can go back is 5.")
-        years_back = st.number_input('How Many Years Back From Today?', min_value=0, max_value=5, value=0)
-        st.write('')
+    warning_1 = st.sidebar.write("Max yrs you can go back is 5.")
+    years_back = st.sidebar.number_input('How Many Years Back From Today?', min_value=0, max_value=5, value=0)
 
-        st.write("""
-        The next 2 questions are going to ask for the securities to be analyzed.\n
-        Don't enter a crypto symbol in the wrong place and viceversa."""
-        )
-
-        st.write("You must enter a Stock, Equity, Commodity, etc, Symbol name using letters only. Please refer to Yahoo Finance for a list of applicable symbols.  Type the symbol as provided by the broker.")
+    warning_2 = st.sidebar.write("You must enter a Stock, Equity, Commodity, etc, Symbol name using letters only. Please refer to Yahoo Finance for a list of applicable symbols.  Type the symbol as provided by the broker.")
         
-        first_stock_symbol = st.text_input('Enter a security symbol only', 'SP500')
-        st.write('')
+    first_stock_symbol = st.sidebar.text_input('Enter a security symbol only', 'SP500')
 
-        st.write("You must enter 5 Crypto Symbol names using letters only. Please refer to Bitfinex.com for a list of crypto symbols. Type the symbol as provided by the broker.")
+    warning_3 = st.sidebar.write("You must enter 5 Crypto Symbol names using letters only. Please refer to Bitfinex.com for a list of crypto symbols. Type the symbol as provided by the broker.")
 
-        crypto_symbols = st.text_input('Enter 5 crypto symbols only as below', 'BTCUSD,ETHUSD,MNAUSD,YFIUSD,SOLUSD')
-        st.write('')
+    crypto_symbols = st.sidebar.text_input('Enter 5 crypto symbols only as below', 'BTCUSD,ETHUSD,MNAUSD,YFIUSD,SOLUSD')
 
-        # Set the start_date to years_back  
-        years = user_start_date.replace(year=(yesterday.year - years_back), month=yesterday.month, day=yesterday.day)
-        start_date = pd.Timestamp(f"{years}", tz="America/New_York").isoformat()
-        # Set the end_date to yesterday
-        end_date = pd.Timestamp(f"{yesterday}", tz="America/New_York").isoformat()
+    # Set the start_date to years_back  
+    years = user_start_date.replace(year=(yesterday.year - years_back), month=yesterday.month, day=yesterday.day)
+    start_date = pd.Timestamp(f"{years}", tz="America/New_York").isoformat()
+    # Set the end_date to yesterday
+    end_date = pd.Timestamp(f"{yesterday}", tz="America/New_York").isoformat()
 
-        # Every form must have a submit button.
-        submitted = st.form_submit_button("Submit")
+    # Every form must have a submit button.
+    submitted = st.sidebar.button("Submit")
 
-        if submitted:
-            # Submit an object with choices
-            return {
-                'user_start_date': user_start_date,
-                'start_date': start_date,
-                'end_date': end_date,
-                'first_crypto_symbol': first_stock_symbol,
-                'crypto_symbols': crypto_symbols
-            }
+    if submitted:
+        # Submit an object with choices
+        choices = {
+            'user_start_date': user_start_date,
+            'start_date': start_date,
+            'end_date': end_date,
+            'first_crypto_symbol': first_stock_symbol,
+            'crypto_symbols': crypto_symbols
+        }
+        # Load data
+        load_data(choices)
 
 def run():
     """The main function for running the script."""
-
-    combined_df = load_data(get_choices())
+    get_choices()
+    # combined_df = load_data()
     print('Run works!')
-    print(combined_df)
+    # print(combined_df)
 
 if __name__ == "__main__":
     run()

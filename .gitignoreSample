@@ -1,0 +1,8 @@
+
+.env
+
+.ipynb_checkpoints/
+
+rest_api/__pychache__/
+
+utils/__pychache__/

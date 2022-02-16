@@ -36,16 +36,16 @@ def get_choices():
     # )
     
     warning_1 = st.sidebar.write("Max yrs you can go back is 5.")
-    years_back = st.sidebar.number_input('How Many Years Back From Today?', min_value=0, max_value=5, value=0)
+    years_back = st.sidebar.number_input('How Many Years Back From Today?', min_value=1, max_value=5, value=1)
 
     warning_2 = st.sidebar.write("You must enter a Stock, Equity, Commodity, etc, Symbol name using letters only. Please refer to Yahoo Finance for a list of applicable symbols.  Type the symbol as provided by the broker.")
         
-    first_stock_symbol = st.sidebar.text_input('Enter a security symbol only', 'SP500')
+    first_stock_symbol = st.sidebar.text_input('Enter a security symbol only', 'TSLA')
 
     warning_3 = st.sidebar.write("You must enter 5 Crypto Symbol names using letters only. Please refer to Bitfinex.com for a list of crypto symbols. Type the symbol as provided by the broker.")
 
-    crypto_symbols = st.sidebar.text_input('Enter 5 crypto symbols only as below', 'BTCUSD,ETHUSD,MNAUSD,YFIUSD,SOLUSD')
-
+    crypto_symbols = st.sidebar.text_input('Enter 5 crypto symbols only as below', 'BTCUSD')
+    # BTCUSD,ETHUSD,MNAUSD,YFIUSD,SOLUSD
     # Set the start_date to years_back  
     years = user_start_date.replace(year=(yesterday.year - years_back), month=yesterday.month, day=yesterday.day)
     start_date = pd.Timestamp(f"{years}", tz="America/New_York").isoformat()

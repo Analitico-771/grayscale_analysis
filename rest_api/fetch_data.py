@@ -6,9 +6,11 @@ This contains helper functions for alpaca api calls.
 """
 
 import pandas as pd
+import streamlit as st
 from datetime import datetime, date
 from alpaca_trade_api.rest import TimeFrame
 # from MCForecastTools import MCSimulation
+# from app import (get_choices)
 from rest_api.helpers import (
     stock_api,
     crypto_api,
@@ -32,24 +34,59 @@ def get_symbol_data(choices):
     # Set limit_rows to 1000 to retreive the maximum amount of rows
     limit_rows = 1000
 
-    stock_ticker_data = stock_api.get_bars(
-        first_stock_symbol,
-        # stock_tickers,
-        TimeFrame.Day,
-        start=start_date,
-        end=end_date,
-        # adjustment='raw',
-        limit=limit_rows,
-    ).df
 
-    # QUANDL Fetch Crypto Instrument Data
-    res = get_bitfinex_data(crypto_symbols, start_date, end_date)
-     #BTCUSD ETHUSD MNAUSD YFIUSD SOLUSD MATICUSD LUNAUSD LTCUSD
-    crypto_ticker_data = pd.DataFrame(
-        res['data'],
-        columns=["Date","High","Low","Mid","Last","Bid","Ask","Volume"]
-    )
-    # End QUANDL Fetch Crypto Instrument Data
+    try:    
+        stock_ticker_data = stock_api.get_bars(
+            first_stock_symbol,
+            # stock_tickers,
+            TimeFrame.Day,
+            start=start_date,
+            end=end_date,
+            # adjustment='raw',
+            limit=limit_rows,
+        ).df
+
+        
+
+    except Exception as error:
+        # If an exception occurs in the try portion, the code in this branch will be executed.
+        st.sidebar.write(
+        f"""
+        Error Fetching {first_stock_symbol} data.\n
+        Refresh the browser and try again!\n
+        Error: {error}"""
+        )
+        # Every form must have a submit button.
+        # try_again = st.sidebar.button("Try Again")
+        # if try_again:
+        #     # Run app
+        #     run()
+    
+
+    try:
+
+        # QUANDL Fetch Crypto Instrument Data
+        res = get_bitfinex_data(crypto_symbols, start_date, end_date)
+        #BTCUSD ETHUSD MNAUSD YFIUSD SOLUSD MATICUSD LUNAUSD LTCUSD
+        crypto_ticker_data = pd.DataFrame(
+            res['data'],
+            columns=["Date","High","Low","Mid","Last","Bid","Ask","Volume"]
+        )
+        # End QUANDL Fetch Crypto Instrument Data
+        print('this is error', res.text)
+
+    except Exception as error:
+        # If an exception occurs in the try portion, the code in this branch will be executed.
+        st.sidebar.write(
+        f"""
+        Error Fetching Crypto {crypto_symbols} data.\n
+        Refresh the browser and try again!\n
+        Error: {error}"""
+        )
+        # Every form must have a submit button.
+        # try_again = st.sidebar.button("Try Again")
+        # if try_again:
+        #     # Run app
 
     # Convert Date into datetime format and set as index
     crypto_ticker_data = crypto_ticker_data.set_index('Date')
@@ -81,7 +118,7 @@ def get_symbol_data(choices):
 
     # Save combined df to csv
     combined_df.to_csv(f'./resources/combined_df__historical_{user_start_date}.csv')
-    
+
     print(combined_df)
 
     return combined_df

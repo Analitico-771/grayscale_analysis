@@ -16,9 +16,9 @@ def load_data(choices):
     Returns:
         The historical data from the respective API, conducts ETL, saves to a db.
     """
-    combined_df = get_symbol_data(choices)
+    # combined_df = get_symbol_data(choices)
 
-    # return combined_df
+    return 
 
 def get_choices():
     """Prompts the dialog to get the Index and Crypto symbols.
@@ -26,6 +26,7 @@ def get_choices():
     Returns:
         A list of symbols.
     """
+    choices = {}
     user_start_date = date.today()
     yesterday = user_start_date - timedelta(days=1)
 
@@ -64,13 +65,17 @@ def get_choices():
             'crypto_symbols': crypto_symbols
         }
         # Load data
-        load_data(choices)
+        combined_df = get_symbol_data(choices)
+        return {
+            'choices': choices,
+            'combined_df': combined_df
+        }
 
 def run():
     """The main function for running the script."""
-    get_choices()
-    # combined_df = load_data()
     print('Run works!')
+    get_choices()
+    # combined_df = load_data(choices)
     # print(combined_df)
 
 if __name__ == "__main__":

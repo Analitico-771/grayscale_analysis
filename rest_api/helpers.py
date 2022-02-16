@@ -26,8 +26,8 @@ crypto_api = REST(
 
 
 """QUANDL Fetch Crypto Instrument Data"""
-def get_bitfinex_data(first_crypto_symbol, start_date, end_date):
-    url = f"https://data.nasdaq.com/api/v3/datasets/BITFINEX/{first_crypto_symbol}?{start_date}&end_date={end_date}&api_key={os.getenv('QUANDL_API_KEY')}"
+def get_bitfinex_data(crypto_symbols, start_date, end_date):
+    url = f"https://data.nasdaq.com/api/v3/datasets/BITFINEX/{crypto_symbols}?start_date={start_date}&end_date={end_date}&api_key={os.getenv('QUANDL_API_KEY')}"
     res = req.get(url).json()
     res = res["dataset"]
     return res

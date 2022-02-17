@@ -44,7 +44,7 @@ def get_choices():
 
     warning_3 = st.sidebar.write("You must enter 5 Crypto Symbol names using letters only. Please refer to Bitfinex.com for a list of crypto symbols. Type the symbol as provided by the broker.")
 
-    crypto_symbols = st.sidebar.text_input('Enter 5 crypto symbols only as below', 'BTCUSD')
+    crypto_symbols = st.sidebar.text_input('Enter 5 crypto symbols only as below', 'BTCUSD,ETHUSD,MNAUSD,YFIUSD,SOLUSD')
     # BTCUSD,ETHUSD,MNAUSD,YFIUSD,SOLUSD
     # Set the start_date to years_back  
     years = user_start_date.replace(year=(yesterday.year - years_back), month=yesterday.month, day=yesterday.day)

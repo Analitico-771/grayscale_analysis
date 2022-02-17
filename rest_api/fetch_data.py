@@ -34,7 +34,6 @@ def get_symbol_data(choices):
     # Set limit_rows to 1000 to retreive the maximum amount of rows
     limit_rows = 1000
 
-
     try:    
         stock_ticker_data = stock_api.get_bars(
             first_stock_symbol,
@@ -46,47 +45,27 @@ def get_symbol_data(choices):
             limit=limit_rows,
         ).df
 
-        
-
     except Exception as error:
         # If an exception occurs in the try portion, the code in this branch will be executed.
-        st.sidebar.write(
+        warning_4 = st.sidebar.write(
         f"""
         Error Fetching {first_stock_symbol} data.\n
         Refresh the browser and try again!\n
         Error: {error}"""
         )
-        # Every form must have a submit button.
-        # try_again = st.sidebar.button("Try Again")
-        # if try_again:
-        #     # Run app
-        #     run()
+
     
-
-    try:
-
-        # QUANDL Fetch Crypto Instrument Data
-        res = get_bitfinex_data(crypto_symbols, start_date, end_date)
-        #BTCUSD ETHUSD MNAUSD YFIUSD SOLUSD MATICUSD LUNAUSD LTCUSD
-        crypto_ticker_data = pd.DataFrame(
-            res['data'],
-            columns=["Date","High","Low","Mid","Last","Bid","Ask","Volume"]
-        )
-        # End QUANDL Fetch Crypto Instrument Data
-        print('this is error', res.text)
-
-    except Exception as error:
-        # If an exception occurs in the try portion, the code in this branch will be executed.
-        st.sidebar.write(
-        f"""
-        Error Fetching Crypto {crypto_symbols} data.\n
-        Refresh the browser and try again!\n
-        Error: {error}"""
-        )
-        # Every form must have a submit button.
-        # try_again = st.sidebar.button("Try Again")
-        # if try_again:
-        #     # Run app
+    # QUANDL Fetch Crypto Instrument Data
+    
+    res = get_bitfinex_data(crypto_symbols, start_date, end_date)
+    
+    # symbol_1, symbol_2, symbol_3, symbol_4, symbol_5 = res.values()
+    #BTCUSD ETHUSD MNAUSD YFIUSD SOLUSD MATICUSD LUNAUSD LTCUSD
+    crypto_ticker_data = pd.DataFrame(
+        res['data'],
+        columns=["Date","High","Low","Mid","Last","Bid","Ask","Volume"]
+    )
+    # End QUANDL Fetch Crypto Instrument Data
 
     # Convert Date into datetime format and set as index
     crypto_ticker_data = crypto_ticker_data.set_index('Date')
@@ -117,7 +96,7 @@ def get_symbol_data(choices):
     combined_df = pd.concat([stock_ticker_data, crypto_ticker_data], axis="columns", join="inner")
 
     # Save combined df to csv
-    combined_df.to_csv(f'./resources/combined_df__historical_{user_start_date}.csv')
+    combined_df.to_csv(f'./resources/combined_df_historical_{user_start_date}.csv')
 
     print(combined_df)
 

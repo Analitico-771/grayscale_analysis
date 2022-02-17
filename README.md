@@ -63,13 +63,13 @@ This is an application that fetches historical data on an index and five crypto 
 ## Getting Started
 
 <!-- This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps. -->
-* You don't need Python. You can install Anaconda and JupyterLab normally just like any other application on your computer. Follow the instructions for Anaconda, ensure that its working, then install JupyterLab.
+You don't need Python. You can install Anaconda and JupyterLab normally just like any other application on your computer. Follow the instructions for Anaconda, ensure that its working, then install JupyterLab.
 
 You will need Anaconda Navigator as the preferred tool to install the Streamlit environment.  Go to the Streamlit docs to follow the installation.
 
 We used Postman and Jupyter Lab to test the APIs, look at the object returned, and look at the dataframe to develop the ETL code/process (extraction, transformation, and loading) of the data.
 
-* I have placed Comments throughout the code so that you can follow the code and be able to replicate the app on your own. Also, so that you're able to contribute in the future :-)
+I have placed Comments throughout the code so that you can follow the code and be able to replicate the app on your own. Also, so that you're able to contribute in the future :-)
 
 ### Prerequisites
 

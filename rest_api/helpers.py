@@ -45,7 +45,7 @@ def get_bitfinex_data(crypto_symbols, start_date, end_date):
             # If an exception occurs in the try portion, the code in this branch will be executed.
             warning_6 = st.sidebar.write(
                 f"""
-                Error Fetching Crypto {symbol} data.\n
+                Error Fetching Crypto {each_symbol} data.\n
                 Refresh the browser and try again!\n
                 Error: {error}"""
             )

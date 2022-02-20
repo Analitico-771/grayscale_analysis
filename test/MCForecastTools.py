@@ -79,7 +79,7 @@ class MCSimulation:
         """
         
         # Get closing prices of each stock
-        last_prices = self.portfolio_data.xs('close',level=1,axis=1)[-1:].values.tolist()[0]
+        last_prices = self.portfolio_data.xs('Close',level=1,axis=1)[-1:].values.tolist()[0]
         
         # Calculate the mean and standard deviation of daily returns for each stock
         daily_returns = self.portfolio_data.xs('daily_return',level=1,axis=1)

@@ -57,6 +57,6 @@ def get_symbol_data(choices):
     combined_df = pd.concat(combined_tickers_df, axis="columns", join="inner")
     # Save data to csv
     # data.to_csv(f'./files/combined_df_{user_start_date}.csv')
-    data.to_csv(f'files/combined_df.csv')
+    #data.to_csv(f'files/combined_df.csv')
 #     print(combined_df) grayscale_analysis\rest_api\files\combined_df.csv
     return combined_df

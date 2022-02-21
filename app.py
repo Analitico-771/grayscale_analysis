@@ -8,6 +8,12 @@ from utils.fileio import (
     read_csv,
     write_csv
 )
+from visualizations.plots import (
+    basic_portfolio,
+    display_portfolio_return,
+    display_heat_map,
+    monte_carlo
+)
 
 def load_data(choices):
     """The function that gets all the data from all APIs / CSV files.
@@ -30,6 +36,8 @@ def get_choices():
     choices = {}
     user_start_date = date.today()
     yesterday = user_start_date - timedelta(days=1)
+    weights = [0.142857, 0.142857, 0.142857, 0.142857, 0.142857, 0.142857]
+    initial_investment = [5000]
 
     # add_selectbox = st.sidebar.selectbox(
     # "How would you like to be contacted?",
@@ -86,10 +94,19 @@ def get_choices():
                 'combined_df': combined_df
             }
 
+weights = [0.142857, 0.142857, 0.142857, 0.142857, 0.142857, 0.142857]
+initial_investment = [5000]
+
 def run():
     """The main function for running the script."""
     print('Run works!')
-    get_choices()
+    choices = get_choices()
+    if choices:     
+        basic_portfolio(choices['combined_df'])
+        display_portfolio_return(choices['combined_df'], weights, initial_investment)
+        display_heat_map(choices['combined_df'])
+        #monte_carlo()
+
     # combined_df = load_data(choices)
     # print(combined_df)
 

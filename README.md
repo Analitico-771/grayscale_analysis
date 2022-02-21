@@ -31,6 +31,10 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
+    <ul>
+        <li><a href="#mvp">M.V.P.</a></li>
+        <li><a href="#stretch-goals">Stretch Goals</a></li>
+      </ul>
     <li><a href="#contributing">Contributing</a></li>
 	<!-- <li><a href="#license">License</a></li> -->
     <li><a href="#contact">Contact</a></li>
@@ -57,7 +61,6 @@ This is an application that fetches historical data on an index and five crypto 
 * [Python hvplot.pandas](https://hvplot.holoviz.org/index.html)
 * [Python conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
 * [Python JupyterLab](https://jupyter.org/)
-* [Python sqlalchemy](https://www.sqlalchemy.org/)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -115,9 +118,9 @@ A text editor such as [VS Code](https://code.visualstudio.com/) or [Sublime Text
 
 8. Install Streamlit from the Anaconda Navigator
 
-9. Install Alpaca Trade Api
+9. Install yfinance Api
    ```sh
-   pip install alpaca-trade-api
+   pip install yfinance
    ```
 10. Install other dependencies with conda.
     - Search google for the correct conda intall command
@@ -131,6 +134,24 @@ This App helps you visualize and analyze the housing rental market data for a ge
 
 <!-- ROADMAP -->
 ## Roadmap
+
+### M.V.P.
+### Provide the following:
+ - User input for data parameters
+ - Error catching logic for user input
+ - Price correlations between assets
+ - Asset Beta compared to Index
+ - Correlation Heatmap
+ - Sharpe Ratios
+ - Hypothetical past portfolio performance
+
+### Stretch Goals
+### Provide the following:
+ - Hypothetical future portfolio performance based on weighted assets
+ - Monte Carlo Simulation based on user input
+
+<!-- This is an example of how to list things you need to use the software and how to install them. -->
+A text editor such as [VS Code](https://code.visualstudio.com/) or [Sublime Text](https://www.sublimetext.com/)
 
 <!-- ### Here are some screenshots and code snippets of the working app
 
@@ -184,12 +205,13 @@ Other Dependencies used to build the project.
 ##### Search google for the correct conda install command
 
 * pandas
-* sqlalchemy
 * python-dotenv
 
 Other Acknowledgements
 * [Img Shields](https://shields.io)
 * [Choose an Open Source License](https://choosealicense.com)
+* Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of Yahoo, Inc.
+yfinance is not affiliated, endorsed, or vetted by Yahoo, Inc. It's an open-source tool that uses Yahoo's publicly available APIs, and is intended for research and educational purposes. You should refer to Yahoo!'s terms of use ([here](https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html) [here](https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm) [here](https://policies.yahoo.com/us/en/yahoo/terms/index.htm)) for details on your rights to use the actual data downloaded. Remember - the Yahoo! finance API is intended for personal use only.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

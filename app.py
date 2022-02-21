@@ -12,21 +12,20 @@ from visualizations.plots import (
     basic_portfolio,
     display_portfolio_return,
     display_heat_map,
+    beta,
     monte_carlo
 )
 
-def load_data(choices):
-    """The function that gets all the data from all APIs / CSV files.
-
-    Asks for the Index Symbol and Crypto Symbols for analysis, and fetches other functions to complete tasks.
-    
-    Returns:
-        The historical data from the respective API, conducts ETL, saves to a db.
+def load_heading():
+    """The function that displays the heading.
+        Provides instructions to the user
     """
-    # combined_df = get_symbol_data(choices)
+    with st.container():
+        st.title('Grayscale Analysis')
+        header = st.header('This is an App that gets data on financial assets and performs historical portfolio analysis')
+        st.subheader('Please read the instructions carefully and enloy!')
+        # st.text('This is some text.')
 
-    return 
-# @st.experimental_singleton(suppress_st_warning=True)
 def get_choices():
     """Prompts the dialog to get the Index and Crypto symbols.
 
@@ -36,8 +35,6 @@ def get_choices():
     choices = {}
     user_start_date = date.today()
     yesterday = user_start_date - timedelta(days=1)
-    weights = [0.142857, 0.142857, 0.142857, 0.142857, 0.142857, 0.142857]
-    initial_investment = [5000]
 
     # add_selectbox = st.sidebar.selectbox(
     # "How would you like to be contacted?",
@@ -53,6 +50,13 @@ def get_choices():
 
     crypto_symbols = st.sidebar.text_input('Enter 2 crypto symbols only as below', 'BTC-USD,ETH-USD')
     # 'SPY,AMZN,TSLA,NVDA,AAPL,BTC-USD,ETH-USD'
+
+    # Set the weights
+    weights_str = st.sidebar.text_input('Enter The Investment Weights', '0.2,0.2 ,0.2,0.2,0.1,0.1')
+    # Set Initial Investment
+    investment = st.sidebar.number_input('Enter The Initial Investment', min_value=5000, max_value=25000, value=5000)
+    # weights = st.sidebar.text_input('Enter The Investment Weights', min_value=.01, max_value=.9, value=.01)
+
     # Set the start_date to years_back  
     start_date = user_start_date.replace(year=(yesterday.year - years_back), month=yesterday.month, day=yesterday.day)
     # Set the end_date to yesterday
@@ -61,51 +65,73 @@ def get_choices():
     # Every form must have a submit button.
     submitted = st.sidebar.button("Submit")
 
-    if submitted:
-        symbols = tickers + ',' + crypto_symbols
+    symbols = []
+    reset = False
 
-        print(symbols)
-        symbols = symbols.split(",")
-        # print(tickers)
-        # print(crypto_symbols)
-        print(symbols)
-        print(len(symbols))
-        if len(symbols) < 6 or len(symbols) > 6:
-            st.sidebar.write("Error With Symbols Entered!")
-            st.sidebar.write("Check The Syntax And Number Of Symbols")
-            reset = st.sidebar.button("RESET APP")
-            if reset:
-                # Clears all singleton caches:
-                # st.experimental_singleton.clear()
-                get_choices().clear()
+    # Reusable Error Button DRY!
+    def reset_app(error):
+        st.sidebar.write(f"{error}!")
+        st.sidebar.write(f"Check The Syntax")
+        reset = st.sidebar.button("RESET APP")
+
+    if submitted:
+        # convert  strings to lists
+        tickers_list = tickers.split(",")
+        weights_list = weights_str.split(",")
+        crypto_symbols_list = crypto_symbols.split(",")
+        # Create the Symbols List
+        symbols.extend(tickers_list)
+        symbols.extend(crypto_symbols_list)
+        # Convert Weights To Decimals
+        weights = []
+        for item in weights_list:
+            weights.append(float(item))
+
+        # CheckThe User Input
+        if len(tickers_list) != 4:
+            reset_app('Check Stock Tickers')
+        if len(crypto_symbols_list) != 2:
+            reset_app('Check Crypto Tickers')
+        if sum(weights) != 1:
+            reset_app('Check Weights')
+
+        if reset:
+            # Clears all singleton caches:
+            tickers = st.sidebar.text_input('Enter 1 index and 3 stock symbols.', 'SPY,AMZN,TSLA,NVDA')
+            crypto_symbols = st.sidebar.text_input('Enter 2 crypto symbols only as below', 'BTC-USD,ETH-USD')
+            weights_str = st.sidebar.text_input('Enter The Investment Weights', '0.2,0.2 ,0.2,0.2,0.1,0.1')
+            st.experimental_singleton.clear()
+            # get_choices().clear()
         else:    
-            
             # Submit an object with choices
             choices = {
                 'user_start_date': user_start_date,
                 'start_date': start_date,
                 'end_date': end_date,
-                'symbols': symbols
+                'symbols': symbols,
+                'weights': weights,
+                'investment': investment
             }
             # Load data
             combined_df = get_symbol_data(choices)
+            print(combined_df)
             return {
                 'choices': choices,
                 'combined_df': combined_df
             }
 
-weights = [0.142857, 0.142857, 0.142857, 0.142857, 0.142857, 0.142857]
-initial_investment = [5000]
 
 def run():
     """The main function for running the script."""
     print('Run works!')
+    load_heading()
     choices = get_choices()
     if choices:     
         basic_portfolio(choices['combined_df'])
-        display_portfolio_return(choices['combined_df'], weights, initial_investment)
         display_heat_map(choices['combined_df'])
-        #monte_carlo()
+        beta(choices['combined_df'])
+        display_portfolio_return(choices['combined_df'], choices['choices'])
+        monte_carlo(choices['combined_df'], choices['choices'])
 
     # combined_df = load_data(choices)
     # print(combined_df)

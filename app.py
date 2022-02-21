@@ -26,8 +26,6 @@ def load_heading():
         st.subheader('Please read the instructions carefully and enloy!')
         # st.text('This is some text.')
 
-    return 
-# @st.experimental_singleton(suppress_st_warning=True)
 def get_choices():
     """Prompts the dialog to get the Index and Crypto symbols.
 
@@ -37,8 +35,6 @@ def get_choices():
     choices = {}
     user_start_date = date.today()
     yesterday = user_start_date - timedelta(days=1)
-    weights = [0.142857, 0.142857, 0.142857, 0.142857, 0.142857, 0.142857]
-    initial_investment = [5000]
 
     # add_selectbox = st.sidebar.selectbox(
     # "How would you like to be contacted?",
@@ -58,7 +54,7 @@ def get_choices():
     # Set the weights
     weights_str = st.sidebar.text_input('Enter The Investment Weights', '0.2,0.2 ,0.2,0.2,0.1,0.1')
     # Set Initial Investment
-    investment = st.sidebar.number_input('Enter The Initial Investment', min_value=5000, max_value=20000, value=5000)
+    investment = st.sidebar.number_input('Enter The Initial Investment', min_value=5000, max_value=25000, value=5000)
     # weights = st.sidebar.text_input('Enter The Investment Weights', min_value=.01, max_value=.9, value=.01)
 
     # Set the start_date to years_back  
@@ -72,7 +68,7 @@ def get_choices():
     symbols = []
     reset = False
 
-    # Reusable Error Button
+    # Reusable Error Button DRY!
     def reset_app(error):
         st.sidebar.write(f"{error}!")
         st.sidebar.write(f"Check The Syntax")
@@ -101,8 +97,11 @@ def get_choices():
 
         if reset:
             # Clears all singleton caches:
-            # st.experimental_singleton.clear()
-            get_choices().clear()
+            tickers = st.sidebar.text_input('Enter 1 index and 3 stock symbols.', 'SPY,AMZN,TSLA,NVDA')
+            crypto_symbols = st.sidebar.text_input('Enter 2 crypto symbols only as below', 'BTC-USD,ETH-USD')
+            weights_str = st.sidebar.text_input('Enter The Investment Weights', '0.2,0.2 ,0.2,0.2,0.1,0.1')
+            st.experimental_singleton.clear()
+            # get_choices().clear()
         else:    
             # Submit an object with choices
             choices = {

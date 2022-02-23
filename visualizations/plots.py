@@ -1,10 +1,8 @@
 
 import pandas as pd
 import seaborn as sns
-import yfinance as yf
 import streamlit as st
 import matplotlib.pyplot as plt
-from bokeh.plotting import figure
 from MCForecastTools import MCSimulation
 
 

@@ -75,13 +75,15 @@ def monte_carlo(mc_data_df, choices):
     st.subheader('Portfolio Cumulative Returns 15 Yr Outlook')
     st.line_chart(summary_results)
 
-    ci_lower_cumulative_return = round(simulation_summary[8]*investment, 2)
-    ci_upper_cumulative_return = round(simulation_summary[9]*investment, 2)
-    # Display the result of your calculations
-    st.write(f"There is a 95% chance that an initial investment of ${investment:.2f}")
-    st.write(f"over the next 15 years will end within in the range of")
-    st.write(f"${ci_lower_cumulative_return} and ${ci_upper_cumulative_return}")
-
     simulation_summary = simulation.summarize_cumulative_return()
     st.subheader('Portfolio Simulation Summary Cumulative Returns 15 Yr Outlook')
+    
+    ci_lower_cumulative_return = round(simulation_summary[8]*investment,2)
+    ci_upper_cumulative_return = round(simulation_summary[9]*investment,2)
+
+    # Display the result of your calculations
+    st.subheader(f"There is a 95% chance that an initial investment of ${investment:.2f}")
+    st.subheader(f"over the next 15 years will end within in the range of")
+    st.subheader(f"${ci_lower_cumulative_return} and ${ci_upper_cumulative_return}")
+
     st.dataframe(simulation_summary)

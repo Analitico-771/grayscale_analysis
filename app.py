@@ -131,7 +131,8 @@ def run():
         display_heat_map(choices['combined_df'])
         beta(choices['combined_df'])
         display_portfolio_return(choices['combined_df'], choices['choices'])
-        monte_carlo(choices['combined_df'], choices['choices'])
+        with st.spinner('Running Monte Carlo Simulation...'):
+            monte_carlo(choices['combined_df'], choices['choices'])
 
     # combined_df = load_data(choices)
     # print(combined_df)

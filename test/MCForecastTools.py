@@ -1,14 +1,14 @@
 # Import libraries and dependencies
+import os
+import pytz
 import numpy as np
 import pandas as pd
-import os
-import alpaca_trade_api as tradeapi
 import datetime as dt
-import pytz
+import alpaca_trade_api as tradeapi
 
 class MCSimulation:
     """
-    A Python class for runnning Monte Carlo simulation on portfolio price data. 
+    A Python class for running Monte Carlo simulation on portfolio price data. 
     
     ...
     
@@ -91,9 +91,9 @@ class MCSimulation:
         
         # Run the simulation of projecting stock prices 'nSim' number of times
         for n in range(self.nSim):
-        
-            if n % 10 == 0:
-                print(f"Running Monte Carlo simulation number {n}.")
+            # uncomment below for running on your terminal
+            # if n % 10 == 0:
+            #     print(f"Running Monte Carlo simulation number {n}.")
         
             # Create a list of lists to contain the simulated values for each stock
             simvals = [[p] for p in last_prices]

@@ -69,9 +69,11 @@ def monte_carlo(mc_data_df, choices):
     )
     simulation.calc_cumulative_return()
 
-    st.subheader('Portfolio Simulation Results 15 Yr Outlook')
+    # st.subheader('Portfolio Simulation Results 15 Yr Outlook')
 
     simulation_summary = simulation.summarize_cumulative_return()
-    st.dataframe(simulation_summary)
+    # st.dataframe(simulation_summary)
 
+    st.subheader('Portfolio Simulation Results 15 Yr Outlook')
+    st.line_chart(simulation_summary)
     

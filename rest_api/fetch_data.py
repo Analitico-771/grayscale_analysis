@@ -68,6 +68,7 @@ def get_symbol_data(choices):
         ], keys=symbols, axis=1)
     # Drop NaaN
     mc_data_df.dropna(inplace=True)
+    mc_data_df = mc_data_df.copy()
     
     return {
             'stock_df': stock_df,

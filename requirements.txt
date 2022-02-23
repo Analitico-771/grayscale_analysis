@@ -1,3 +1,2 @@
 
 yfinance==0.1.70
-hvplot.pandas

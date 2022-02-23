@@ -10,11 +10,14 @@ from MCForecastTools import MCSimulation
 
 
 def basic_portfolio(stock_df):
-    #st.line_chart(data = combined_df, width=20, height = 10)
+    # st.subheader('Initial Portfolio Historical Data')
+    #st.line_chart(stock_df['stock_df'])
 
     st.subheader('Initial Portfolio Historical Data')
-    st.line_chart(stock_df['stock_df'])
-
+    #st.line_chart(stock_df['stock_df'])
+    daily_return = stock_df['stock_df'].pct_change().dropna()
+    cumulative_return = (1+ daily_return).cumprod()
+    st.line_chart(cumulative_return)
 
 def display_heat_map(stock_df):
     price_correlation = stock_df['stock_df'].corr()
@@ -71,6 +74,13 @@ def monte_carlo(mc_data_df, choices):
     summary_results = simulation.calc_cumulative_return()
     st.subheader('Portfolio Cumulative Returns 15 Yr Outlook')
     st.line_chart(summary_results)
+
+    ci_lower_cumulative_return = round(simulation_summary[8]*investment, 2)
+    ci_upper_cumulative_return = round(simulation_summary[9]*investment, 2)
+    # Display the result of your calculations
+    st.write(f"There is a 95% chance that an initial investment of ${investment:.2f}")
+    st.write(f"over the next 15 years will end within in the range of")
+    st.write(f"${ci_lower_cumulative_return} and ${ci_upper_cumulative_return}")
 
     simulation_summary = simulation.summarize_cumulative_return()
     st.subheader('Portfolio Simulation Summary Cumulative Returns 15 Yr Outlook')

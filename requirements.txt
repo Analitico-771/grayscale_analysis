@@ -1,2 +1,3 @@
 
 yfinance==0.1.70
+seaborn==0.11.2

@@ -55,7 +55,8 @@ def get_choices():
     weights_str = st.sidebar.text_input('Enter The Investment Weights', '0.2,0.2 ,0.2,0.2,0.1,0.1')
     # Set Initial Investment
     investment = st.sidebar.number_input('Enter The Initial Investment', min_value=5000, max_value=25000, value=5000)
-    # weights = st.sidebar.text_input('Enter The Investment Weights', min_value=.01, max_value=.9, value=.01)
+    # Set the investment forecast_years
+    forecast_years = st.sidebar.number_input('Enter The Forecast Years For The Simulation', min_value=5, max_value=15, value=5)
 
     # Set the start_date to years_back  
     start_date = user_start_date.replace(year=(yesterday.year - years_back), month=yesterday.month, day=yesterday.day)
@@ -110,7 +111,8 @@ def get_choices():
                 'end_date': end_date,
                 'symbols': symbols,
                 'weights': weights,
-                'investment': investment
+                'investment': investment,
+                'forecast_years': forecast_years
             }
             # Load data
             combined_df = get_symbol_data(choices)

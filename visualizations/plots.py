@@ -1,6 +1,5 @@
 
 import pandas as pd
-import hvplot.pandas
 import seaborn as sns
 import yfinance as yf
 import streamlit as st

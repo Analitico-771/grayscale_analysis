@@ -114,7 +114,7 @@ def get_choices():
             }
             # Load data
             combined_df = get_symbol_data(choices)
-            print(combined_df)
+            # print(combined_df)
             return {
                 'choices': choices,
                 'combined_df': combined_df
@@ -123,7 +123,7 @@ def get_choices():
 
 def run():
     """The main function for running the script."""
-    print('Run works!')
+    # print('Run works!')
     load_heading()
     choices = get_choices()
     if choices:     

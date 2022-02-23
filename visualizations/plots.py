@@ -67,7 +67,7 @@ def monte_carlo(mc_data_df, choices):
     simulation = MCSimulation(
     portfolio_data = mc_data_df['mc_data_df'],
     weights = weights,
-    num_simulation = 250,
+    num_simulation = 10,
     num_trading_days = 252*forecast_years,
     )
 
@@ -78,12 +78,10 @@ def monte_carlo(mc_data_df, choices):
     simulation_summary = simulation.summarize_cumulative_return()
     st.subheader('Portfolio Simulation Summary Cumulative Returns 15 Yr Outlook')
     
-    ci_lower_cumulative_return = round(simulation_summary[8]*investment,2)
-    ci_upper_cumulative_return = round(simulation_summary[9]*investment,2)
+    ci_lower_cumulative_return = round(simulation_summary[8] * investment, 2)
+    ci_upper_cumulative_return = round(simulation_summary[9] * investment, 2)
 
     # Display the result of your calculations
-    st.subheader(f"There is a 95% chance that an initial investment of ${investment:.2f}")
-    st.subheader(f"over the next 15 years will end within in the range of")
-    st.subheader(f"${ci_lower_cumulative_return} and ${ci_upper_cumulative_return}")
+    st.write(f"There is a 95% chance that an initial investment of ${investment:.2f} over the next 15 years will end within in the range between {str(ci_lower_cumulative_return)} and {str(ci_upper_cumulative_return)} USD")
 
     st.dataframe(simulation_summary)

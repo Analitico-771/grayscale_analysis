@@ -6,10 +6,9 @@ This contains helper functions for alpaca api calls.
 """
 
 import pandas as pd
+import yfinance as yf
 import streamlit as st
 from datetime import datetime, date
-import yfinance as yf
-# from MCForecastTools import MCSimulation
 
 
 def get_symbol_data(choices):
@@ -37,8 +36,7 @@ def get_symbol_data(choices):
                         start=start_date,
                         end=end_date
                 )
-                # Save data to csv
-                # data.to_csv(f'./files/{each_ticker}.csv')
+                
                 # Drop the NaaN and extra columns from the Crypto DataFrame
                 mc_data = data.dropna().rename(columns={'Close':'close'})
                 combined_data.append(mc_data)
@@ -56,10 +54,10 @@ def get_symbol_data(choices):
                 # Clears all singleton caches:
                 st.experimental_singleton.clear()
 
-    # Concatenate the crypto dataframes
+    # Concatenate the dataframes
     stock_df = pd.concat(combined_tickers_df, axis="columns", join="inner")
     mc_data_df = pd.concat(combined_data, axis="columns", join="inner")
-
+    # Add the Top Column to the Monte Carlo df
     mc_data_df = pd.concat([
         individual_data[symbols[0]],
         individual_data[symbols[1]],
@@ -68,13 +66,9 @@ def get_symbol_data(choices):
         individual_data[symbols[4]],
         individual_data[symbols[5]],
         ], keys=symbols, axis=1)
-
+    # Drop NaaN
     mc_data_df.dropna(inplace=True)
     
-    # Save data to csv
-    # data.to_csv(f'./files/combined_df_{user_start_date}.csv')
-    #data.to_csv(f'files/combined_df.csv')
-#     print(combined_df) grayscale_analysis\rest_api\files\combined_df.csv
     return {
             'stock_df': stock_df,
             'mc_data_df': mc_data_df

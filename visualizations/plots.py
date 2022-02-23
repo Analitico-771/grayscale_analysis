@@ -8,13 +8,14 @@ import matplotlib.pyplot as plt
 from bokeh.plotting import figure
 from MCForecastTools import MCSimulation
 
+
 def basic_portfolio(stock_df):
     #st.line_chart(data = combined_df, width=20, height = 10)
 
     st.subheader('Initial Portfolio Historical Data')
     st.line_chart(stock_df['stock_df'])
-# stock_df['stock_df']
-# combined_df
+
+
 def display_heat_map(stock_df):
     price_correlation = stock_df['stock_df'].corr()
     #sns.heatmap(price_correlation, vmin=-1, vmax=1)
@@ -68,7 +69,7 @@ def monte_carlo(mc_data_df, choices):
     )
     simulation.calc_cumulative_return()
 
-    #st.container(simulation.plot_simulation())
+    st.subheader('Portfolio Simulation Results 15 Yr Outlook')
 
     simulation_summary = simulation.summarize_cumulative_return()
     st.dataframe(simulation_summary)

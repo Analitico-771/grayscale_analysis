@@ -12,7 +12,7 @@ def basic_portfolio(stock_df):
 
     st.subheader('Initial Portfolio Historical Data')
     #st.line_chart(stock_df['stock_df'])
-    daily_return = stock_df['stock_df'].pct_change().dropna()
+    daily_return = stock_df['stock_df'].dropna().pct_change()
     cumulative_return = (1+ daily_return).cumprod()
     st.line_chart(cumulative_return)
 
@@ -30,7 +30,7 @@ def display_heat_map(stock_df):
 
 
 def beta(stock_df):
-    daily_returns = stock_df['stock_df'].pct_change().dropna()
+    daily_returns = stock_df['stock_df'].dropna().pct_change()
     columns = daily_returns.columns.tolist()
     beta = []
     for each_column in columns:
@@ -45,7 +45,7 @@ def beta(stock_df):
 
 
 def display_portfolio_return(stock_df, choices):
-    user_start_date, start_date, end_date, symbols, weights, investment  = choices.values()
+    user_start_date, start_date, end_date, symbols, weights, investment, forecast_years  = choices.values()
     
     daily_returns = stock_df['stock_df'].pct_change().dropna()
     portfolio_returns = daily_returns.dot(weights)
@@ -57,28 +57,26 @@ def display_portfolio_return(stock_df, choices):
 
  
 def monte_carlo(mc_data_df, choices):
-    user_start_date, start_date, end_date, symbols, weights, investment  = choices.values()
+    user_start_date, start_date, end_date, symbols, weights, investment, forecast_years  = choices.values()
     
-    forecast_years = 15
-
     simulation = MCSimulation(
     portfolio_data = mc_data_df['mc_data_df'],
     weights = weights,
-    num_simulation = 10,
-    num_trading_days = 252*forecast_years,
+    num_simulation = 250,
+    num_trading_days = 252 * forecast_years,
     )
 
     summary_results = simulation.calc_cumulative_return()
-    st.subheader('Portfolio Cumulative Returns 15 Yr Outlook')
+    st.subheader(f'Portfolio Cumulative Returns {forecast_years} Yr(s) Outlook')
     st.line_chart(summary_results)
 
     simulation_summary = simulation.summarize_cumulative_return()
-    st.subheader('Portfolio Simulation Summary Cumulative Returns 15 Yr Outlook')
+    st.subheader(f'Portfolio Simulation Summary Cumulative Returns {forecast_years} Yr(s) Outlook')
     
     ci_lower_cumulative_return = round(simulation_summary[8] * investment, 2)
     ci_upper_cumulative_return = round(simulation_summary[9] * investment, 2)
 
     # Display the result of your calculations
-    st.write(f"There is a 95% chance that an initial investment of ${investment:.2f} over the next 15 years will end within in the range between {str(ci_lower_cumulative_return)} and {str(ci_upper_cumulative_return)} USD")
+    st.write(f"There is a 95% chance that an initial investment of ${investment} over the next {forecast_years} years will end within in the range between {ci_lower_cumulative_return} and {ci_upper_cumulative_return} USD")
 
     st.dataframe(simulation_summary)

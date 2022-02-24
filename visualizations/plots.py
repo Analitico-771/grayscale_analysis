@@ -29,16 +29,17 @@ def display_heat_map(stock_df):
         st.dataframe(price_correlation)
 
 
-def beta(stock_df):
-    daily_returns = stock_df['stock_df'].dropna().pct_change()
-    columns = daily_returns.columns.tolist()
-    beta = []
-    for each_column in columns:
-        if each_column != columns[0]:
-            covariance = daily_returns[each_column].cov(daily_returns[columns[0]])
-            variance = daily_returns[columns[0]].var()
-            calc_beta = covariance / variance
-            beta.append({each_column:calc_beta})
+# def beta(stock_df):
+#     daily_returns = stock_df['stock_df'].dropna().pct_change()
+#     columns = daily_returns.columns.tolist()
+#     beta = []
+#     for each_column in columns:
+#         if each_column != columns[0]:
+#             covariance = daily_returns[each_column].cov(daily_returns[columns[0]])
+#             variance = daily_returns[columns[0]].var()
+#             calc_beta = covariance / variance
+#             beta.append({each_column:calc_beta})
+    
 
     st.subheader('Beta Of Assets Comapred to Index')
     st.json(beta)

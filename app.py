@@ -57,6 +57,9 @@ def get_choices():
     investment = st.sidebar.number_input('Enter The Initial Investment', min_value=5000, max_value=25000, value=5000)
     # Set the investment forecast_years
     forecast_years = st.sidebar.number_input('Enter The Forecast Years For The Simulation', min_value=5, max_value=15, value=5)
+    # Set the number of simulations to run_years
+    st.sidebar.write("We recommend you run 500 sim runs. 250 is minimum and 1000 is max")
+    sim_runs = st.sidebar.number_input('Enter The Number Of Simulations To Run', min_value=250, max_value=1000, value=250)
 
     # Set the start_date to years_back  
     start_date = user_start_date.replace(year=(yesterday.year - years_back), month=yesterday.month, day=yesterday.day)
@@ -112,7 +115,8 @@ def get_choices():
                 'symbols': symbols,
                 'weights': weights,
                 'investment': investment,
-                'forecast_years': forecast_years
+                'forecast_years': forecast_years,
+                'sim_runs': sim_runs
             }
             # Load data
             combined_df = get_symbol_data(choices)

@@ -20,7 +20,7 @@ def get_symbol_data(choices):
         The historical data from the respective API, conducts ETL, saves to a db.
     """
     # deconstruct object
-    user_start_date, start_date, end_date, symbols, weights, investment, forecast_years  = choices.values()
+    user_start_date, start_date, end_date, symbols, weights, investment, forecast_years, sim_runs  = choices.values()
     # print(user_start_date)
     # print(start_date)
     # print(end_date)

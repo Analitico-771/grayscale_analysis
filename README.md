@@ -29,7 +29,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#usage">Link To Live Streamlit App</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <ul>
         <li><a href="#mvp">M.V.P.</a></li>
@@ -47,7 +47,7 @@
 
 This project was created by: Nick Danialy and Jose Tollinchi
 
-This is an application that fetches historical data on an index and five crypto currencies and performs analytical calculations to assist in conducting a relative analysis between the index and the crypto currencies to determine if a relationship exists and the type of relationship
+This is an application that fetches historical data on 1 index, 4 stocks, and 2 crypto currencies and performs analytical calculations to assist in conducting a relative analysis between the index and the crypto currencies to determine if a relationship exists and the type of relationship for the purpose of conducting portfolio analysis and Monte Carlo Simulation for forecasting potential future returns.
 
 ### Built With
 
@@ -66,7 +66,7 @@ This is an application that fetches historical data on an index and five crypto 
 ## Getting Started
 
 <!-- This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps. -->
-You don't need Python. You can install Anaconda and JupyterLab normally just like any other application on your computer. Follow the instructions for Anaconda, ensure that its working, then install JupyterLab.
+You don't need Python directly on your system. You can install Anaconda for a virtual environment and JupyterLab normally just like any other application on your computer. Follow the instructions for Anaconda, ensure that its working, then install JupyterLab.
 
 You will need Anaconda Navigator as the preferred tool to install the Streamlit environment.  Go to the Streamlit docs to follow the installation.
 
@@ -127,10 +127,10 @@ A text editor such as [VS Code](https://code.visualstudio.com/) or [Sublime Text
     - See the acknowledgements sections for other dependencies 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Link To Live Streamlit App
 
-<!-- Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources. -->
-This App helps you visualize and analyze the housing rental market data for a geographical area
+https://share.streamlit.io/anaiitico/grayscale_analysis/main/app.py
+
 
 <!-- ROADMAP -->
 ## Roadmap

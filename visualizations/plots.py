@@ -45,7 +45,7 @@ def beta(stock_df):
 
 
 def display_portfolio_return(stock_df, choices):
-    user_start_date, start_date, end_date, symbols, weights, investment, forecast_years  = choices.values()
+    user_start_date, start_date, end_date, symbols, weights, investment, forecast_years, sim_runs  = choices.values()
     
     daily_returns = stock_df['stock_df'].pct_change().dropna()
     portfolio_returns = daily_returns.dot(weights)
@@ -57,12 +57,12 @@ def display_portfolio_return(stock_df, choices):
 
  
 def monte_carlo(mc_data_df, choices):
-    user_start_date, start_date, end_date, symbols, weights, investment, forecast_years  = choices.values()
+    user_start_date, start_date, end_date, symbols, weights, investment, forecast_years, sim_runs  = choices.values()
     
     simulation = MCSimulation(
     portfolio_data = mc_data_df['mc_data_df'],
     weights = weights,
-    num_simulation = 250,
+    num_simulation = sim_runs,
     num_trading_days = 252 * forecast_years,
     )
 

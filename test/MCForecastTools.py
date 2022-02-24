@@ -4,7 +4,6 @@ import pytz
 import numpy as np
 import pandas as pd
 import datetime as dt
-import alpaca_trade_api as tradeapi
 
 class MCSimulation:
     """

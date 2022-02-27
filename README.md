@@ -127,7 +127,7 @@ A text editor such as [VS Code](https://code.visualstudio.com/) or [Sublime Text
     - See the acknowledgements sections for other dependencies 
 
 <!-- USAGE EXAMPLES -->
-## Link To Live Streamlit App
+## usage
 
 https://share.streamlit.io/anaiitico/grayscale_analysis/main/app.py
 

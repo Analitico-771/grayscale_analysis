@@ -9,10 +9,10 @@ from utils.fileio import (
     write_csv
 )
 from visualizations.plots import (
+    beta,
     basic_portfolio,
     display_portfolio_return,
     display_heat_map,
-    beta,
     monte_carlo
 )
 
@@ -22,7 +22,7 @@ def load_heading():
     """
     with st.container():
         st.title('Grayscale Analysis')
-        header = st.header('This is an App that gets data on financial assets and performs historical portfolio analysis')
+        header = st.subheader('This App performs historical portfolio analysis and future analysis with Monte Carlo Simulation')
         st.subheader('Please read the instructions carefully and enloy!')
         # st.text('This is some text.')
 
@@ -133,9 +133,9 @@ def run():
     load_heading()
     choices = get_choices()
     if choices:     
+        beta(choices['combined_df'])
         basic_portfolio(choices['combined_df'])
         display_heat_map(choices['combined_df'])
-        beta(choices['combined_df'])
         display_portfolio_return(choices['combined_df'], choices['choices'])
         with st.spinner('Running Monte Carlo Simulation...'):
             monte_carlo(choices['combined_df'], choices['choices'])

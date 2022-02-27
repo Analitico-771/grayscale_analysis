@@ -45,9 +45,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project was created by: Nick Danialy and Jose Tollinchi
+This project was created by: Nick Danialy and Jose Tollinchi and its live on Streamlit.  See the link in the Usage section
 
 This is an application that fetches historical data on 1 index, 4 stocks, and 2 crypto currencies and performs analytical calculations to assist in conducting a relative analysis between the index and the crypto currencies to determine if a relationship exists and the type of relationship for the purpose of conducting portfolio analysis and Monte Carlo Simulation for forecasting potential future returns.
+
+The user can experiment with many different variations of choices for portfolio analysis based on preferences and risk tolerance.
 
 ### Built With
 
@@ -127,7 +129,7 @@ A text editor such as [VS Code](https://code.visualstudio.com/) or [Sublime Text
     - See the acknowledgements sections for other dependencies 
 
 <!-- USAGE EXAMPLES -->
-## usage
+## Usage
 
 https://share.streamlit.io/anaiitico/grayscale_analysis/main/app.py
 
@@ -153,13 +155,22 @@ https://share.streamlit.io/anaiitico/grayscale_analysis/main/app.py
 <!-- This is an example of how to list things you need to use the software and how to install them. -->
 A text editor such as [VS Code](https://code.visualstudio.com/) or [Sublime Text](https://www.sublimetext.com/)
 
-<!-- ### Here are some screenshots and code snippets of the working app
+### Here are some screenshots and code snippets of the working app
 
-#### #### Description - With Analysis
-![Description][description-screenshot]
+#### App User Interface
+![App User Interface][app-screenshot]
 
-#### Description - #### Description - With Analysis
-![Description][description-screenshot] -->
+#### Beta & Normalized Portfolio 
+![Beta & Normalized Portfolio][beta-screenshot]
+
+#### Heatmap 
+![Heatmap][heatmap-screenshot]
+
+#### Historical Portfolio 
+![Historical Portfolio][historical-screenshot]
+
+#### Monte Carlo Simulation Results 
+![Monte Carlo Simulation Results][montecarlo-screenshot]
 
 
 <!-- #### Description
@@ -168,7 +179,7 @@ A text editor such as [VS Code](https://code.visualstudio.com/) or [Sublime Text
   *and there's an analysis at the end*
 ```sh
   some cool code goes here
- ``` -->
+ ```
 
 See the [open issues](https://github.com/AnaIitico/grayscale_analysis/issues) for a list of proposed features (and known issues).
 
@@ -229,5 +240,8 @@ yfinance is not affiliated, endorsed, or vetted by Yahoo, Inc. It's an open-sour
 [linkedin-shield2]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url1]: https://www.linkedin.com/in/josetollinchi/
 [linkedin-url2]: https://www.linkedin.com/in/nicklaus-danialy/
-<!-- [-screenshot]: /images/
-[-screenshot]: /images/ -->
+[app-screenshot]: /grayscale_analysis/images/website.PNG
+[beta-screenshot]: /grayscale_analysis/images/beta_normalized_portfolio.PNG
+[heatmap-screenshot]: /grayscale_analysis/images/heatmap_correlation.PNG
+[historical-screenshot]: /grayscale_analysis/images/historical_portfolio.PNG
+[montecarlo-screenshot]: /grayscale_analysis/images/monte_carlo_output.PNG

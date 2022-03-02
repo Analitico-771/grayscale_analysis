@@ -240,8 +240,8 @@ yfinance is not affiliated, endorsed, or vetted by Yahoo, Inc. It's an open-sour
 [linkedin-shield2]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url1]: https://www.linkedin.com/in/josetollinchi/
 [linkedin-url2]: https://www.linkedin.com/in/nicklaus-danialy/
-[app-screenshot]: /1st_project_files/grayscale_analysis/images/website.PNG
-[beta-screenshot]: /1st_project_files/grayscale_analysis/images/beta_normalized_portfolio.PNG
-[heatmap-screenshot]: /1st_project_files/grayscale_analysis/images/heatmap_correlation.PNG
-[historical-screenshot]: /1st_project_files/grayscale_analysis/images/historical_portfolio.PNG
-[montecarlo-screenshot]: /1st_project_files/grayscale_analysis/images/monte_carlo_output.PNG
+[app-screenshot]: /images/website.PNG
+[beta-screenshot]: /images/beta_normalized_portfolio.PNG
+[heatmap-screenshot]: /images/heatmap_correlation.PNG
+[historical-screenshot]: /images/historical_portfolio.PNG
+[montecarlo-screenshot]: /images/monte_carlo_output.PNG

@@ -1,13 +1,8 @@
 
-import time
 import pandas as pd
 import streamlit as st
 from datetime import date, timedelta
 from rest_api.fetch_data import (get_symbol_data)
-from utils.fileio import (
-    read_csv,
-    write_csv
-)
 from visualizations.plots import (
     beta,
     basic_portfolio,
@@ -16,6 +11,7 @@ from visualizations.plots import (
     monte_carlo
 )
 
+
 def load_heading():
     """The function that displays the heading.
         Provides instructions to the user
@@ -23,14 +19,15 @@ def load_heading():
     with st.container():
         st.title('Grayscale Analysis')
         header = st.subheader('This App performs historical portfolio analysis and future analysis with Monte Carlo Simulation')
-        st.subheader('Please read the instructions carefully and enloy!')
+        st.subheader('Please read the instructions carefully and enjoy!')
         # st.text('This is some text.')
 
+
 def get_choices():
-    """Prompts the dialog to get the Index and Crypto symbols.
+    """Prompts the dialog to get the All Choices.
 
     Returns:
-        A list of symbols.
+        An object of choices and an object of combined dataframes.
     """
     choices = {}
     user_start_date = date.today()
@@ -105,7 +102,7 @@ def get_choices():
             crypto_symbols = st.sidebar.text_input('Enter 2 crypto symbols only as below', 'BTC-USD,ETH-USD')
             weights_str = st.sidebar.text_input('Enter The Investment Weights', '0.2,0.2 ,0.2,0.2,0.1,0.1')
             st.experimental_singleton.clear()
-            # get_choices().clear()
+
         else:    
             # Submit an object with choices
             choices = {
@@ -118,9 +115,9 @@ def get_choices():
                 'forecast_years': forecast_years,
                 'sim_runs': sim_runs
             }
-            # Load data
+            # Load combined_df
             combined_df = get_symbol_data(choices)
-            # print(combined_df)
+            # return object of objects
             return {
                 'choices': choices,
                 'combined_df': combined_df
@@ -129,7 +126,7 @@ def get_choices():
 
 def run():
     """The main function for running the script."""
-    # print('Run works!')
+
     load_heading()
     choices = get_choices()
     if choices:     
@@ -140,8 +137,6 @@ def run():
         with st.spinner('Running Monte Carlo Simulation...'):
             monte_carlo(choices['combined_df'], choices['choices'])
 
-    # combined_df = load_data(choices)
-    # print(combined_df)
 
 if __name__ == "__main__":
     run()

@@ -5,9 +5,11 @@ import streamlit as st
 import matplotlib.pyplot as plt
 from MCForecastTools import MCSimulation
 
+
 def beta(stock_df):
     """Uses the stock dataframe to calculate and display the betas of the assets.
     """
+
     # Creates an empty list for the betas
     beta_list = []
     # Creates a covariance variable
@@ -56,7 +58,7 @@ def basic_portfolio(stock_df):
     # Graphs the cumulative returns
     st.line_chart(cumulative_return)
 
-# Creating a heatmap showing the relationships between the different assets
+
 def display_heat_map(stock_df):
     """Uses the stock dataframe to calculate the correlations between the different assets and display them as a heatmap.
     """
@@ -74,6 +76,7 @@ def display_heat_map(stock_df):
     st.subheader('Correlation Data')
     # Displays the correlation data on streamlit
     st.dataframe(price_correlation)
+
 
 def display_portfolio_return(stock_df, choices):
     """Uses the stock dataframe and the chosen weights from choices to calculate and graph the historical cumulative portfolio return.
@@ -93,11 +96,12 @@ def display_portfolio_return(stock_df, choices):
     st.subheader('Portfolio Historical Cumulative Returns Based On Inputs!')
     st.line_chart(cumulative_profit)
 
-#Run a monte carlo simulation to forecast future portfolio returns and display the data
+
 def monte_carlo(mc_data_df, choices):
     """Uses the stock dataframe and the chosen weights from choices to run a monte carlo simulation forecasting the portfolio returns, 
         generate and display a line chart of the results, summary statistics, and upper and lower bounds for future value.
     """
+
     user_start_date, start_date, end_date, symbols, weights, investment, forecast_years, sim_runs  = choices.values()
     
     # Setting the parameters for the monte carlo simulation
@@ -124,3 +128,4 @@ def monte_carlo(mc_data_df, choices):
     # Display the result of the calculations with descriptive text
     st.write(f"There is a 95% chance that an initial investment of ${investment} over the next {forecast_years} years might result within the range of {ci_lower_cumulative_return} and {ci_upper_cumulative_return} USD")
     st.dataframe(simulation_summary)
+    

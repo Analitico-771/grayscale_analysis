@@ -1,7 +1,7 @@
 
-"""Helper functions to work with Alpaca api.
+"""Helper functions to work with Api.
 
-This contains helper functions for alpaca api calls.
+This contains helper functions for Api Calls.
 
 """
 
@@ -14,63 +14,54 @@ from datetime import datetime, date
 def get_symbol_data(choices):
     """The function that gets all the data for a symbol
 
-    Discriminates between a crypto request and others
+    Discriminates between a crypto request and others, conducts ETL.
+    Two DataFrames are created: stock_df and mc_data_df.  They have similar information but have a different format.  The API Call gets all the data at one time and formats both dataframes for efficiency and then later another column is added for the Monte Carlo Simulation code. Then both objects are returned as one.
     
     Returns:
-        The historical data from the respective API, conducts ETL, saves to a db.
+        Two dataframes with the historical data from Yahoo API.
     """
-    # deconstruct object
+    # deconstruct object choices
     user_start_date, start_date, end_date, symbols, weights, investment, forecast_years, sim_runs  = choices.values()
-    # print(user_start_date)
-    # print(start_date)
-    # print(end_date)
 
-    combined_data = []
-    individual_data = {}
-    combined_tickers_df = []
+    mc_data_list = []
+    combined_tickers_list = []
 
     try:
         for each_ticker in symbols:
-                data = yf.download(
-                        each_ticker,
-                        start=start_date,
-                        end=end_date
-                )
-                
-                # Drop the NaaN and extra columns from the Crypto DataFrame
-                mc_data = data.dropna().rename(columns={'Close':'close'})
-                combined_data.append(mc_data)
-                individual_data[each_ticker] = mc_data
-                data = data.dropna().drop(columns=['Open','High','Low','Close','Volume'])
-                # Rename column to ticker name
-                data = data.rename(columns = {'Adj Close' : each_ticker})
-                # Append each ticker to a list
-                combined_tickers_df.append(data)
+            data = yf.download(
+                each_ticker,
+                start=start_date,
+                end=end_date
+            )
+            # dropna() from df
+            data = data.dropna()
+            #append unchanged data into mc_data_list
+            mc_data_list.append(data)
+            data = data.drop(columns=['Open','High','Low','Close','Volume'])
+            # Rename column to ticker name
+            data = data.rename(columns = {'Adj Close' : each_ticker})
+            # Append each ticker to a list
+            combined_tickers_list.append(data)
 
     except Exception as error:
-            st.sidebar.write(f"{error}")
-            reset = st.sidebar.button("RESET APP")
-            if reset:
-                # Clears all singleton caches:
-                st.experimental_singleton.clear()
+        print(error)
 
     # Concatenate the dataframes
-    stock_df = pd.concat(combined_tickers_df, axis="columns", join="inner")
-    mc_data_df = pd.concat(combined_data, axis="columns", join="inner")
-    # Add the Top Column to the Monte Carlo df
-    mc_data_df = pd.concat([
-        individual_data[symbols[0]],
-        individual_data[symbols[1]],
-        individual_data[symbols[2]],
-        individual_data[symbols[3]],
-        individual_data[symbols[4]],
-        individual_data[symbols[5]],
-        ], keys=symbols, axis=1)
-    # Drop NaaN
-    mc_data_df.dropna(inplace=True)
-    mc_data_df = mc_data_df.copy()
+    stock_df = pd.concat(combined_tickers_list, axis="columns", join="inner")
+    mc_data_df = pd.concat(mc_data_list, axis="columns", join="inner")
     
+    # Create the multi level column tuple
+    multi_columns = []
+    # Change the "Adj Close" column name to "close" for Monte Carlo simulation code
+    columns = ['Open','High','Low','Close','close','Volume']
+    for each_symbol in symbols:
+        for each_column in columns:
+            multi_columns.append((each_symbol, each_column))
+
+    # Create multi level index
+    mc_data_df.columns = pd.MultiIndex.from_tuples(multi_columns)
+
     return {
-            'stock_df': stock_df,
-            'mc_data_df': mc_data_df
+        'stock_df': stock_df,
+        'mc_data_df': mc_data_df
     }

@@ -43,20 +43,20 @@ def get_choices():
 
     warning_2 = st.sidebar.write("You must enter 1 Index such as SPY, 3 Stock, and 2 Crypto Symbol names. Please refer to Yahoo Finance for a list of applicable ticker symbols.  Type the symbol EXACTLY as provided by Yahoo Finance.")
         
-    tickers = st.sidebar.text_input('Enter 1 index and 3 stock symbols.', 'SPY,AMZN,TSLA,NVDA')
+    tickers = st.sidebar.text_input('Enter 1 index and 3 stock symbols.', 'SPY,AAPL,TSLA,NVDA')
 
     crypto_symbols = st.sidebar.text_input('Enter 2 crypto symbols only as below', 'BTC-USD,ETH-USD')
     # 'SPY,AMZN,TSLA,NVDA,AAPL,BTC-USD,ETH-USD'
 
     # Set the weights
-    weights_str = st.sidebar.text_input('Enter The Investment Weights', '0.2,0.2 ,0.2,0.2,0.1,0.1')
+    weights_str = st.sidebar.text_input('Enter The Investment Weights - Total 1.0', '0.2,0.2 ,0.2,0.2,0.1,0.1')
     # Set Initial Investment
-    investment = st.sidebar.number_input('Enter The Initial Investment', min_value=5000, max_value=25000, value=5000)
+    investment = st.sidebar.number_input('Enter The Initial Investment - Max 15K', min_value=5000, max_value=15000, value=5000)
     # Set the investment forecast_years
-    forecast_years = st.sidebar.number_input('Enter The Forecast Years For The Simulation', min_value=5, max_value=15, value=5)
+    forecast_years = st.sidebar.number_input('Enter The Forecast Years For The Sim - Max 10', min_value=3, max_value=10, value=5)
     # Set the number of simulations to run_years
     st.sidebar.write("We recommend you run 500 sim runs. 250 is minimum and 1000 is max")
-    sim_runs = st.sidebar.number_input('Enter The Number Of Simulations To Run', min_value=250, max_value=1000, value=250)
+    sim_runs = st.sidebar.number_input('Enter The Number Of Sims To Run', min_value=250, max_value=1000, value=500)
 
     # Set the start_date to years_back  
     start_date = user_start_date.replace(year=(yesterday.year - years_back), month=yesterday.month, day=yesterday.day)
@@ -98,7 +98,7 @@ def get_choices():
 
         if reset:
             # Clears all singleton caches:
-            tickers = st.sidebar.text_input('Enter 1 index and 3 stock symbols.', 'SPY,AMZN,TSLA,NVDA')
+            tickers = st.sidebar.text_input('Enter 1 index and 3 stock symbols.', 'SPY,AAPL,TSLA,NVDA')
             crypto_symbols = st.sidebar.text_input('Enter 2 crypto symbols only as below', 'BTC-USD,ETH-USD')
             weights_str = st.sidebar.text_input('Enter The Investment Weights', '0.2,0.2 ,0.2,0.2,0.1,0.1')
             st.experimental_singleton.clear()
@@ -140,3 +140,4 @@ def run():
 
 if __name__ == "__main__":
     run()
+    
